@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: matterbridge-conf
+  labels:
+    app: matterbridge
+data:
+  matterbridge.toml: |-
+    [slack]
+    [slack.test]
+    Token="yourslacktoken"
+    PrefixMessagesWithNick=true
+
+    [discord]
+    [discord.test]
+    Token="yourdiscordtoken"
+    Server="yourdiscordservername"
+
+    [general]
+    RemoteNickFormat="[{PROTOCOL}/{BRIDGE}] <{NICK}> "
+
+    [[gateway]]
+    name = "mygateway"
+    enable=true
+
+    [[gateway.inout]]
+    account = "discord.test"
+    channel="general"
+
+    [[gateway.inout]]
+    account ="slack.test"
+    channel = "general"

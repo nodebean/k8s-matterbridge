@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matterbridge
+  labels:
+    app: matterbridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matterbridge
+  template:
+    metadata:
+      labels:
+        app: matterbridge
+    spec:
+      containers:
+        - name: matterbridge
+          image: 42wim/matterbridge:1.22.3 #1.17.5
+          args: [ ]
+          env:
+          volumeMounts:
+            - mountPath: /etc/matterbridge/matterbridge.toml 
+              subPath: matterbridge.toml
+              name: matterbridge-conf
+      volumes:
+        - name: matterbridge-conf
+          configMap:
+            name: matterbridge-conf
